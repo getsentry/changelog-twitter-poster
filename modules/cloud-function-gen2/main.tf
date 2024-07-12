@@ -30,6 +30,16 @@ resource "google_cloudfunctions2_function_iam_member" "invoker_allusers" {
   member         = "allUsers"
 }
 
+resource "google_cloud_run_service_iam_binding" "cloud_run_invoker" {
+  project  = google_cloudfunctions2_function.function.project
+  location = google_cloudfunctions2_function.function.location
+  service  = google_cloudfunctions2_function.function.name
+  role     = "roles/run.invoker"
+  members = [
+    "allUsers"
+  ]
+}
+
 resource "google_secret_manager_secret_iam_member" "secret_iam" {
   for_each  = { for s in var.secret_environment_variables : s.key => s }
   secret_id = each.value.secret
@@ -109,6 +119,9 @@ resource "google_cloudfunctions2_function" "function" {
         version    = item.value.version
         project_id = local.project
       }
+    }
+    environment_variables = {
+      LOG_EXECUTION_ID = "true"
     }
   }
 
