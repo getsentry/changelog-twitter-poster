@@ -8,9 +8,10 @@ resource "google_secret_manager_secret" "secret" {
 
 locals {
   secrets = [
-    "getsentry_twitter_consumer_key",
-    "getsentry_twitter_consumer_secret",
-    "getsentry_twitter_access_token",
-    "getsentry_twitter_access_token_secret",
+    "sentrychangelog_twitter_consumer_key",
+    "sentrychangelog_twitter_consumer_secret",
+    "sentrychangelog_twitter_access_token",
+    "sentrychangelog_twitter_access_token_secret",
+    "sentrychangelog_webhook_auth_header",
   ]
 }
