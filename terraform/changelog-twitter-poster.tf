@@ -1,11 +1,11 @@
 module "changelog-twitter-poster" {
-  source = "../modules/cloud-function-gen2"
+  source              = "../modules/cloud-function-gen2"
   name                = "changelog-twitter-poster"
   description         = "Posting updates from https://sentry.io/changelog/ to the Sentry Changelog Twitter account"
   source_dir          = "changelog-twitter-poster"
   execution_timeout   = 120
   available_memory_mb = "128Mi"
-  
+
   secret_environment_variables = [
     {
       key     = "sentrychangelog_twitter_consumer_key"

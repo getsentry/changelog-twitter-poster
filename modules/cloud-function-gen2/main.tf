@@ -8,12 +8,12 @@ terraform {
 }
 
 locals {
-  project           = "changelog-twitter-poster"
-  project_id        = "changelog-twitter-poster"
-  project_num       = "157958522731"
-  region            = "us-west1"
-  zone              = "us-west1-b"
-  bucket_location   = "US-WEST1"
+  project         = "changelog-twitter-poster"
+  project_id      = "changelog-twitter-poster"
+  project_num     = "157958522731"
+  region          = "us-west1"
+  zone            = "us-west1-b"
+  bucket_location = "US-WEST1"
 }
 
 resource "google_service_account" "function_sa" {
