@@ -3,6 +3,7 @@
 
 # Terraform lock file
 terraform/.terraform.lock.hcl
+**.tfstate.lock.info
 
 # plan files
 plan
