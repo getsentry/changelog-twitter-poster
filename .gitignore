@@ -4,9 +4,19 @@
 # Terraform lock file
 terraform/.terraform.lock.hcl
 
-# .tfstate files
+# plan files
+plan
+*.plan
+*tfplan
+
+# state files
 *.tfstate
-*.tfstate.*
+*.tfstate.backup
+
+# transient log files
+*.log
+*.list
+*.json
 
 # Crash log files
 crash.log
