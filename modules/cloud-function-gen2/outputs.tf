@@ -13,3 +13,7 @@ output "function_region" {
 output "function_trigger_url" {
   value = google_cloudfunctions2_function.function.url
 }
+
+output "function_sa_email" {
+  value = google_service_account.function_sa.email
+}
