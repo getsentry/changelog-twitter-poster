@@ -19,6 +19,7 @@ sentrychangelog_webhook_auth_header = os.environ.get(
 )
 
 
+# make sure the request has all the required fields, and draft the twitter post content
 def validate_component(request_json):
     if not (
         "title" in request_json
@@ -60,19 +61,20 @@ def post_to_twitter(payload):
 
 def main(request):
 
+    # make sure the request is coming from Zapier
     if request.headers.get("User-Agent") != "Zapier":
         return "Unauthorized", 401
+    # verifiy the authorization header
     elif request.headers.get("Authorization") != sentrychangelog_webhook_auth_header:
         return "Unauthorized", 401
 
-    request_json = request.get_json(silent=True)
+    # validate the request and craft the message
+    message = validate_component(request.get_json(silent=True))
 
-    message = validate_component(request_json)
-
-    if message != False:
+    if message:
         return post_to_twitter({"text": message})
     else:
-        return "Success", 200
+        return "Bad Request", 400
 
 
 if __name__ == "__main__":
