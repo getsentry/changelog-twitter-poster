@@ -1,6 +1,19 @@
 import os
 import logging
 from requests_oauthlib import OAuth1Session
+import sentry_sdk
+from sentry_sdk.integrations.gcp import GcpIntegration
+
+sentry_sdk.init(
+    # changelog-twitter-poster project in sentry
+    dsn="https://a3d3dee85cf224e789c6df4a6c50d1ed@o1.ingest.us.sentry.io/4508258405908480",
+    integrations=[
+        GcpIntegration(timeout_warning=True),
+    ],
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for tracing.
+    traces_sample_rate=1.0,
+)
 
 sentrychangelog_twitter_consumer_key = os.environ.get(
     "sentrychangelog_twitter_consumer_key"
@@ -28,6 +41,13 @@ def validate_component(request_json):
     ):
         logging.error("Component Validation: incorrect formatted webhook json")
         return False
+    elif (len(request_json["title"])+len(request_json["description"])) > 280:
+        # twitter allows 280 characters per post, ignore the description if it's too long
+        message = "{} \n \n {}".format(
+            request_json["title"],
+            request_json["link"],
+        )
+        return message
     else:
         message = "{} \n \n {} {}".format(
             request_json["title"],
