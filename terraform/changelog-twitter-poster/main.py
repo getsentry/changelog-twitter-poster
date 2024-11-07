@@ -1,6 +1,19 @@
 import os
 import logging
 from requests_oauthlib import OAuth1Session
+import sentry_sdk
+from sentry_sdk.integrations.gcp import GcpIntegration
+
+sentry_sdk.init(
+    # changelog-twitter-poster project in sentry
+    dsn="https://a3d3dee85cf224e789c6df4a6c50d1ed@o1.ingest.us.sentry.io/4508258405908480",
+    integrations=[
+        GcpIntegration(timeout_warning=True),
+    ],
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for tracing.
+    traces_sample_rate=1.0,
+)
 
 sentrychangelog_twitter_consumer_key = os.environ.get(
     "sentrychangelog_twitter_consumer_key"
