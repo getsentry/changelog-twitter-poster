@@ -43,7 +43,7 @@ def validate_component(request_json):
         return False
     elif (len(request_json["title"])+len(request_json["description"])) > 280:
         # twitter allows 280 characters per post, ignore the description if it's too long
-        message = "{} \n \n {} {}".format(
+        message = "{} \n \n {}".format(
             request_json["title"],
             request_json["link"],
         )
