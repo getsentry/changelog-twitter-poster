@@ -1,4 +1,4 @@
-# changelog-twitter-poster
+# changelog-twitter-bot
  
 This is a GCP Cloud Function that listen to [Sentry Changelog](https://sentry.io/changelog/) and post the update on the [Sentry Changelog Twitter Account](https://x.com/SentryChangelog)
 
